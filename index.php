@@ -4,15 +4,11 @@ $url="https://data.gov.bh/api/explore/v2.1/catalog/datasets/01-statistics-of-stu
 
 $response =file_get_contents($url);
 
-echo $response;
-print_r($response);
 
-$data=json_decode($response,true);
+$data= json_decode($response,true);
 
-echo $response;
-print_r($response);
 
-if(!$data!||!isset($data["results"])){
+if(!$data|| !isset($data["results"])){
     die ('There error fetching the data from the api');
 }
 $result=$data["results"];
@@ -46,7 +42,7 @@ print_r($results)
                        <td><?php echo $students["Nationality"]; ?></td>
                        <td><?php echo $students["Colleges"]; ?></td>
                        <td><?php echo $students["No. of students"]; ?></td>
-                    </tr>
+                    </tr> <?php
                 }
                 ?>
             </tbody>
