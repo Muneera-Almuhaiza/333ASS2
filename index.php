@@ -1,20 +1,20 @@
 <?php 
 
-$url="https://data.gov.bh/api/explore/v2.1/catalog/datasets/01-statistics-of-students-nationalities_updated/records?where=colleges%20like%20%22IT%22%20AND%20the_programs%20like%20%22bachelor%22&limit=100";
+$url = "https://data.gov.bh/api/explore/v2.1/catalog/datasets/01-statistics-of-students-nationalities_updated/records?where=colleges%20like%20%22IT%22%20AND%20the_programs%20like%20%22bachelor%22&limit=100";
 
-$response =file_get_contents($url);
+$response = file_get_contents($url);
 
+$data = json_decode($response, true);
 
-$data= json_decode($response,true);
-
-
-if(!$data|| !isset($data["results"])){
-    die ('There error fetching the data from the api');
+if (!$data || !isset($data["results"])) {
+    die('There was an error fetching the data from the API');
 }
-$result=$data["results"];
-print_r($results)
+
+$result= $data["results"];
+ 
+
 ?>
-<html >
+<html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
@@ -33,16 +33,17 @@ print_r($results)
             </thead>
             <tbody>
                 <?php 
-                foreach($result as $students){
+                foreach ($result as $students) {
                     ?>
-                   <tr>
-                       <td><?php echo $students["year"]; ?></td>
-                       <td><?php echo $students["Semester"]; ?></td>
-                       <td><?php echo $students["Programs"]; ?></td>
-                       <td><?php echo $students["Nationality"]; ?></td>
-                       <td><?php echo $students["Colleges"]; ?></td>
-                       <td><?php echo $students["No. of students"]; ?></td>
-                    </tr> <?php
+                    <tr>
+                        <td><?php echo $students["year"] ?? 'N/A'; ?></td>
+                        <td><?php echo $students["semester"] ?? 'N/A'; ?></td>
+                        <td><?php echo $students["the_programs"] ?? 'N/A'; ?></td>
+                        <td><?php echo $students["nationality"] ?? 'N/A'; ?></td>
+                        <td><?php echo $students["colleges"] ?? 'N/A'; ?></td>
+                        <td><?php echo $students["number_of_students"] ?? 'N/A'; ?></td>
+                    </tr>
+                    <?php
                 }
                 ?>
             </tbody>
